@@ -23,17 +23,45 @@ class Tree {
         
         return root;
     }
+
+    insert(value, currentRoot = this.root) {
+        const newNode = new Node(value);
+
+        if (!currentRoot) {
+            this.root = newNode;
+            return;
+        }
+
+        if (value === currentRoot.value) return;
+        if (value > currentRoot.value) {
+
+            if (!currentRoot.right) {
+                currentRoot.right = newNode;
+            } else {
+                this.insert(value, currentRoot.right);
+            }
+
+        } else if (value < currentRoot.value) {
+
+            if (!currentRoot.left) {
+                currentRoot.left = newNode;
+            } else {
+                this.insert(value, currentRoot.left)
+            }
+        }
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
-      return;
+        return;
     }
     if (node.right !== null) {
-      prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+        prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
     }
     console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.value}`);
     if (node.left !== null) {
-      prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+        prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
 };
+
