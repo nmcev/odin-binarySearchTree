@@ -50,6 +50,36 @@ class Tree {
             }
         }
     }
+
+    delete(value, node = this.root) {
+
+        if (value > node.value) {
+            node.right = this.delete(value, node.right);
+        } else if (value < node.value) {
+            node.left = this.delete(value, node.left);
+        } else {
+            if (!node.left && !node.right) return null;
+            else if (!node.left) return node.right;
+            else if (!node.right) return node.left;
+            else { 
+
+                const maxNode = this.findMax(node.right);
+
+                node.value = maxNode.value;
+                node.right = this.delete(maxNode.value, node.right);
+            }
+        }
+
+        return node;
+    }
+
+    findMax(node) {
+        while (node.right) {
+            node = node.right
+        }
+        return node;
+    }
+
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
