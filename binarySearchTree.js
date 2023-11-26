@@ -80,6 +80,25 @@ class Tree {
         return node;
     }
 
+    find(value, node = this.root) {
+
+        if (!node) {
+            return null;
+        };
+
+        if (value === node.value) {
+            return node.value;
+        } else {
+
+            if (value > node.value) {
+                return this.find(value, node.right);
+                // passing the right subtree to continue searching because the value is bigger the current node value
+            } else {
+                return this.find(value, node.left);
+                // as well as above passing the left subtree to continue searching for the value
+            }
+        };
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
