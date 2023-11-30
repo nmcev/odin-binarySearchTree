@@ -99,6 +99,30 @@ class Tree {
             }
         };
     }
+    
+    printValue(nodeValue) {
+        console.log(nodeValue);
+    }
+
+    levelOrder(node = this.root, queue = [node], printValue = this.printValue) {
+        if (!node || queue.length === 0) return;
+
+        const currentNode = queue.shift();
+
+        if (printValue) {
+            printValue(currentNode.value);
+        }
+
+        if (currentNode.left) {
+            queue.push(currentNode.left);
+        }
+
+        if (currentNode.right) {
+            queue.push(currentNode.right);
+        }
+
+        this.levelOrder(node, queue, printValue)
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
