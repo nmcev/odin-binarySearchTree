@@ -123,6 +123,30 @@ class Tree {
 
         this.levelOrder(node, queue, printValue)
     }
+
+    preOrder(node = this.root) {
+        if (!node) return;
+        
+        console.log(node.value);
+        this.preOrder(node.left);
+        this.preOrder(node.right);
+    }
+
+    inOrder(node = this.root) {
+        if (!node) return;
+
+        this.inOrder(node.left);
+        console.log(node.value);
+        this.inOrder(node.right);
+    }
+
+    postOrder(node = this.root) { 
+        if (!node) return; 
+
+        this.postOrder(node.left);
+        this.postOrder(node.right);
+        console.log(node.value);
+    }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
