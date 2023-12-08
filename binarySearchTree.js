@@ -147,6 +147,19 @@ class Tree {
         this.postOrder(node.right);
         console.log(node.value);
     }
+
+    height(root = this.root) {
+
+        if (root === null) {
+            return -1;
+        }
+
+        const leftHeight = this.height(root.left);
+        const rightHeight = this.height(root.right);
+
+        // plus one for the node tree
+        return 1 + Math.max(leftHeight, rightHeight);
+    }  
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
