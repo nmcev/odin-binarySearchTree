@@ -160,6 +160,23 @@ class Tree {
         // plus one for the node tree
         return 1 + Math.max(leftHeight, rightHeight);
     }  
+
+    depth(root = this.root, value, count = -1) {
+
+        if (root === null) {
+            return -1;
+        }
+    
+        count++;
+        if (value === root.value) {
+            return count;
+        } else if (value < root.value) {
+            return this.depth(root.left, value, count);
+        } else {
+            return this.depth(root.right, value, count);
+        }
+    }
+      
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
