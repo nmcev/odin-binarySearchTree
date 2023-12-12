@@ -176,7 +176,26 @@ class Tree {
             return this.depth(root.right, value, count);
         }
     }
-      
+     
+    isBalanced(root = this.root) {
+        if (!root) return true;
+
+        const leftHeight = this.height(root.left);
+        const rightHeight = this.height(root.right);
+
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            console.log("not balanced");
+            console.log("root:", root.value);
+            console.log("left height:", leftHeight + 1);
+            console.log("right height:", rightHeight + 1);
+            console.log("difference:", Math.abs(leftHeight - rightHeight));
+            
+            return false;
+        }
+
+        return this.isBalanced(root.left) && this.isBalanced(root.right);
+    }
+
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -192,3 +211,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 };
 
+const tree = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+tree.insert(10);
+console.log(tree.isBalanced());
+prettyPrint(tree.root);
