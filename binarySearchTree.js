@@ -189,7 +189,7 @@ class Tree {
             console.log("left height:", leftHeight + 1);
             console.log("right height:", rightHeight + 1);
             console.log("difference:", Math.abs(leftHeight - rightHeight));
-            
+
             return false;
         }
 
@@ -211,8 +211,3 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 };
 
-const tree = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-
-tree.insert(10);
-console.log(tree.isBalanced());
-prettyPrint(tree.root);
