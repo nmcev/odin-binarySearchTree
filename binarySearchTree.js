@@ -238,6 +238,12 @@ class Tree {
         return this.isBalanced(root.left) && this.isBalanced(root.right);
     }
 
+    rebalance() {
+        
+        const values = this.inOrder().split(' -> ');
+        this.root = this.buildTree(values, 0, values.length - 1);
+    }
+
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
