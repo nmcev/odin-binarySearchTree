@@ -100,18 +100,13 @@ class Tree {
         };
     }
     
-    printValue(nodeValue) {
-        console.log(nodeValue);
-    }
 
-    levelOrder(node = this.root, queue = [node], printValue = this.printValue) {
+    levelOrder(node = this.root, queue = [node], values = []) {
         if (!node || queue.length === 0) return;
 
         const currentNode = queue.shift();
 
-        if (printValue) {
-            printValue(currentNode.value);
-        }
+        values.push(currentNode.value)
 
         if (currentNode.left) {
             queue.push(currentNode.left);
@@ -121,7 +116,8 @@ class Tree {
             queue.push(currentNode.right);
         }
 
-        this.levelOrder(node, queue, printValue)
+        this.levelOrder(node, queue, values);
+        return values.join(' -> ')
     }
 
     preOrder(callback = null, node = this.root) {
@@ -258,3 +254,48 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 };
 
+function randomArray(size = 10, max = 99) {
+    return Array(size).fill(0).map(() => Math.round(Math.random() * max));
+}
+const array = randomArray();
+
+// Crate a tree with the array 
+const tree = new Tree(array);
+
+// Confirm the tree is balanced
+console.log(`Is balanced: ${tree.isBalanced()} \n`);
+
+// Print all elements in all DFS methods
+console.log(`Pre-order: ${tree.preOrder()} \n`);
+console.log(`In-order: ${tree.inOrder()} \n`);
+console.log(`Post-order: ${tree.postOrder()} \n`);
+
+// Print all elements in level order
+console.log(`Level-order: ${tree.levelOrder()}\n`);
+
+// Unbalance the tree by inserting number is > 100 
+
+tree.insert(125);
+tree.insert(150);
+tree.insert(175);
+
+// Confirm that the tree is unbalanced  
+console.log(`\x1b[31mIs balanced: ${tree.isBalanced()} \n\x1b[0m`);
+
+// Balance the tree with rebalance()
+tree.rebalance()
+
+// Confirm that the tree is balanced  
+console.log(`Is balanced: ${tree.isBalanced()} \n`);
+
+
+// Print all elements in all DFS methods
+console.log(`Pre-order: ${tree.preOrder()} \n`);
+console.log(`In-order: ${tree.inOrder()} \n`);
+console.log(`Post-order: ${tree.postOrder()} \n`);
+
+// Print all elements in level order
+console.log(`Level-order: ${tree.levelOrder()}\n`);
+
+
+prettyPrint(tree.root)
