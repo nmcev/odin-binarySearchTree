@@ -226,7 +226,6 @@ class Tree {
         const rightHeight = this.height(root.right);
 
         if (Math.abs(leftHeight - rightHeight) > 1) {
-            console.log("not balanced");
             console.log("root:", root.value);
             console.log("left height:", leftHeight + 1);
             console.log("right height:", rightHeight + 1);
