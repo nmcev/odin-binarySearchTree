@@ -124,28 +124,70 @@ class Tree {
         this.levelOrder(node, queue, printValue)
     }
 
-    preOrder(node = this.root) {
-        if (!node) return;
-        
-        console.log(node.value);
-        this.preOrder(node.left);
-        this.preOrder(node.right);
+    preOrder(callback = null, node = this.root) {
+        if (!node) return [];
+
+        const values = []; 
+
+        const traverse = (currentNode) => {
+            if (callback) {
+                callback(currentNode.value);
+            } else {
+                values.push(currentNode.value);
+            }
+
+            if (currentNode.left) traverse(currentNode.left);
+
+            if (currentNode.right) traverse(currentNode.right);
+        }
+
+        traverse(node);
+
+        return values.length ? values.join(' -> ') : undefined;
+
     }
 
-    inOrder(node = this.root) {
-        if (!node) return;
-
-        this.inOrder(node.left);
-        console.log(node.value);
-        this.inOrder(node.right);
+    inOrder(callback = null, node = this.root) {
+        if (!node) return [];
+    
+        const values = [];
+    
+        const traverse = (currentNode) => {
+            if (currentNode.left) traverse(currentNode.left);
+    
+            if (callback) {
+                callback(currentNode.value);
+            } else {
+                values.push(currentNode.value);
+            }
+    
+            if (currentNode.right) traverse(currentNode.right);
+        };
+    
+        traverse(node);
+    
+        return values.length ? values.join(' -> ') : undefined;
     }
 
-    postOrder(node = this.root) { 
-        if (!node) return; 
+    postOrder(callback = null, node = this.root) { 
+        if (!node) return []; 
+        const values = [];
 
-        this.postOrder(node.left);
-        this.postOrder(node.right);
-        console.log(node.value);
+        const traverse = (currentNode) => {
+            if (currentNode.left) traverse(currentNode.left);
+    
+            if (currentNode.right) traverse(currentNode.right);
+    
+            if (callback) {
+                callback(currentNode.value);
+            } else {
+                values.push(currentNode.value);
+            }
+        };
+    
+        traverse(node);
+    
+        return values.length ? values.join(' -> ') : undefined;
     }
 
     height(root = this.root) {
